@@ -18,11 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               DateTime.now().day,
             ),
             selectedValue: _hiveBox.containsKey(
-              DateTime(
-                DateTime.now().year,
-                DateTime.now().month,
-                DateTime.now().day,
-              ).toString(),
+              '${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}',
             )
                 ? [true]
                 : [],
@@ -46,8 +42,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(
         state.copyWith(
           selectedDate: event.date,
-          selectedValue:
-              _hiveBox.containsKey(event.date.toString()) ? [true] : [],
+          selectedValue: _hiveBox.containsKey(
+            '${event.date.year}${event.date.month}${event.date.day}',
+          )
+              ? [true]
+              : [],
         ),
       );
     });
@@ -58,7 +57,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   // }
 
   List<bool> isPresent(DateTime day) {
-    return _hiveBox.containsKey(day.toString()) ? [true] : [];
+    return _hiveBox.containsKey('${day.year}${day.month}${day.day}')
+        ? [true]
+        : [];
   }
 
   Future<void> _onToggleMarker(
@@ -66,18 +67,28 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     log('event handled: ${event.date}');
-    if (_hiveBox.containsKey(event.date.toString())) {
-      _hiveBox.delete(event.date.toString());
+    // deletes the key if present
+    if (_hiveBox.containsKey(
+      '${event.date.year}${event.date.month}${event.date.day}',
+    )) {
+      _hiveBox.delete(
+        '${event.date.year}${event.date.month}${event.date.day}',
+      );
     } else {
+      // updates the key if present if not present then create new
       _hiveBox.put(
-        event.date.toString(),
+        '${event.date.year}${event.date.month}${event.date.day}',
         event.date.toString(),
       );
     }
 
     emit(state.copyWith(
       selectedDate: event.date,
-      selectedValue: _hiveBox.containsKey(event.date.toString()) ? [true] : [],
+      selectedValue: _hiveBox.containsKey(
+        '${event.date.year}${event.date.month}${event.date.day}',
+      )
+          ? [true]
+          : [],
       allMarks: {
         for (var value in _hiveBox.values) DateTime.parse(value): [true]
       },

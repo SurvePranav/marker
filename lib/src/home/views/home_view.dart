@@ -50,21 +50,20 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           children: [
             SizedBox(
-              height: 55,
-              width: 55,
-              child: Icon(
-                Icons.edit_calendar_outlined,
-                color: Colors.grey,
-                size: 40,
+              height: 40,
+              width: 40,
+              child: Image.asset(
+                'assets/images/calendar_logo.png',
+                color: Colors.white,
               ),
             ),
-            SizedBox(
-              width: 10,
+            const SizedBox(
+              width: 15,
             ),
-            Text('Marke The Day'),
+            const Text('Marke The Day'),
           ],
         ),
       ),

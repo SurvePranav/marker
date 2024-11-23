@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeBloc(LocalDatabaseService.instance.getBox),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Marker',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,
