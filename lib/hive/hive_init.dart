@@ -1,16 +1,28 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-class HiveInitilizer {
-  HiveInitilizer._();
+final class LocalDatabaseService {
+  // Private constructor to prevent instantiation outside of this class.
+  LocalDatabaseService._();
 
-  late final Box<String> _hiveBox;
-  static final HiveInitilizer _instance = HiveInitilizer._();
+  // Singleton instance
+  static final LocalDatabaseService _instance =
+      LocalDatabaseService._(); // creating the instance
 
-  static HiveInitilizer get instance => _instance;
-  Box<String> get hiveBox => _hiveBox;
+  late Box<String> _hiveBox;
 
-  static Future<void> initilizeHiveAdapters() async {
-    await Hive.initFlutter();
-    instance._hiveBox = await Hive.openBox<String>('HiveBox');
+  // Getter for the singleton instance
+  static LocalDatabaseService get instance => _instance;
+
+  // Initialization function to open the boxes and register adapters
+  //* This method should be (Explicitly) only once when starting the app
+  //* Here will the initilization of the variables will happen
+  static Future<void> initilize() async {
+    await Hive.initFlutter(); // Initialize Hive
+
+    // Open boxes and assign to the variables
+    _instance._hiveBox = await Hive.openBox<String>('HiveBox');
   }
+
+  // Getter to access zineModelBox
+  Box<String> get getBox => _hiveBox;
 }

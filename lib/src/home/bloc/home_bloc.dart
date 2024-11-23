@@ -12,13 +12,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._hiveBox)
       : super(
           HomeState(
-            selectedDate: DateTime.utc(
+            selectedDate: DateTime(
               DateTime.now().year,
               DateTime.now().month,
               DateTime.now().day,
             ),
             selectedValue: _hiveBox.containsKey(
-              DateTime.utc(
+              DateTime(
                 DateTime.now().year,
                 DateTime.now().month,
                 DateTime.now().day,

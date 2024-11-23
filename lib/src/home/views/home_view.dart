@@ -18,17 +18,18 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
-    context.read<HomeBloc>()
-      ..add(const GetAllMarks())
-      ..add(
-        SelectionChanged(
-          date: DateTime.utc(
-            DateTime.now().year,
-            DateTime.now().month,
-            DateTime.now().day,
+    context
+        .read<HomeBloc>()
+        // ..add(const GetAllMarks())
+        .add(
+          SelectionChanged(
+            date: DateTime(
+              DateTime.now().year,
+              DateTime.now().month,
+              DateTime.now().day,
+            ),
           ),
-        ),
-      );
+        );
 
     super.initState();
   }
@@ -157,8 +158,8 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   weekendDays: const [7],
                   startingDayOfWeek: StartingDayOfWeek.monday,
-                  firstDay: DateTime.utc(2020, 1, 1),
-                  lastDay: DateTime.utc(DateTime.now().year + 5, 12, 31),
+                  firstDay: DateTime(2020, 1, 1),
+                  lastDay: DateTime(DateTime.now().year + 5, 12, 31),
                   focusedDay: state.selectedDate,
                   selectedDayPredicate: (day) =>
                       isSameDay(day, state.selectedDate),
